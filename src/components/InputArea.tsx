@@ -6,6 +6,7 @@ import disabledIcon from "../assets/icons/comment-dots-regular.svg";
 import {
     ForwardedRef,
     KeyboardEvent,
+    CompositionEvent,
     forwardRef,
     useEffect,
     useImperativeHandle,
@@ -34,6 +35,7 @@ export const InputArea = forwardRef(
         const textAreaRef = useRef<HTMLTextAreaElement>(null);
         const [inputPlaceholder, setInputPlaceholder] = useState("");
         const [attachmentName, setAttachmentName] = useState("");
+        const [isComposing, setIsComposing] = useState(false);
 
         const handleSubmit = () => {
             const { current } = textAreaRef;
@@ -105,6 +107,14 @@ export const InputArea = forwardRef(
                 e.preventDefault();
                 handleSubmit();
                 setAttachmentName("");
+            }
+        };
+
+        const handleComposition = (event: CompositionEvent<HTMLTextAreaElement>) => {
+            if (event.type === 'compositionstart') {
+                setIsComposing(true);
+            } else if (event.type === 'compositionend') {
+                setIsComposing(false);
             }
         };
 
@@ -195,6 +205,8 @@ export const InputArea = forwardRef(
                                     maxHeight
                                 )
                             }
+                            onCompositionStart={handleComposition}
+                            onCompositionEnd={handleComposition}
                             onKeyDown={handleKeyDown}
                         />
                     </div>
