@@ -102,7 +102,7 @@ export const InputArea = forwardRef(
                 !shiftKey &&
                 key === "Enter" &&
                 !!value.trim().length &&
-                !isMobileDevice()
+                !isMobileDevice() && !isComposing
             ) {
                 e.preventDefault();
                 handleSubmit();
