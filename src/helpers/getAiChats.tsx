@@ -28,7 +28,7 @@ export const getAiChats = async (
         });
 
         if (stream) {
-            const chat = model.startChat({ ...options, history: payload });
+            const chat = model.startChat({ ...options});
             const result = await chat.sendMessageStream(prompts);
             for await (const chunk of result.stream) {
                 const chunkText = chunk.text();
@@ -54,8 +54,8 @@ export const getAiChats = async (
             onChatMessage("", true);
         } else {
             const chat = model.startChat({
-                ...options,
-                history: payload,
+                ...options
+                // history: payload,
             });
             const result = await chat.sendMessage(prompts);
             const response = result.response;
