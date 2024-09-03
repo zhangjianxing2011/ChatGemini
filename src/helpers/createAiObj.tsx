@@ -3,7 +3,7 @@ import { GoogleGenerativeAI as thirdPartyGoogleGenerativeAI } from "@fuyun/gener
 
 export const createAiObj = <T,>(key: string, api: string | null): T => {
     if (api !== null) {
-        const ai = new thirdPartyGoogleGenerativeAI(key) as unknown;
+        const ai = new thirdPartyGoogleGenerativeAI(key,api) as unknown;
         return ai as T;
     }
 
