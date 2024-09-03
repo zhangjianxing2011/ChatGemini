@@ -1,40 +1,40 @@
-import { useEffect, useRef, useState } from "react";
-import { globalConfig } from "./config/global";
-import { Sidebar } from "./components/Sidebar";
-import { Container } from "./components/Container";
-import { Header } from "./components/Header";
-import { InputArea } from "./components/InputArea";
-import { routerConfig } from "./config/router";
-import { RouterView } from "./components/RouterView";
-import { Skeleton } from "./components/Skeleton";
-import { useDispatch, useSelector } from "react-redux";
-import { ReduxStoreProps } from "./config/store";
-import { onUpdate as updateAI } from "./store/ai";
-import { matchPath, useNavigate } from "react-router-dom";
-import { saveMdToHtml } from "./helpers/saveMdToHtml";
-import { getAiChats } from "./helpers/getAiChats";
-import { modelConfig } from "./config/model";
-import { initialSessions, onUpdate as updateSessions } from "./store/sessions";
-import { getAiContent } from "./helpers/getAiContent";
-import { GenerativeContentBlob } from "@google/generative-ai";
-import { getBase64Img } from "./helpers/getBase64Img";
-import { sendUserAlert } from "./helpers/sendUserAlert";
-import { sendUserConfirm } from "./helpers/sendUserConfirm";
-import { PageScroller } from "./components/PageScroller";
-import { LoginForm } from "./components/LoginForm";
+import {useEffect, useRef, useState} from "react";
+import {globalConfig} from "./config/global";
+import {Sidebar} from "./components/Sidebar";
+import {Container} from "./components/Container";
+import {Header} from "./components/Header";
+import {InputArea} from "./components/InputArea";
+import {routerConfig} from "./config/router";
+import {RouterView} from "./components/RouterView";
+import {Skeleton} from "./components/Skeleton";
+import {useDispatch, useSelector} from "react-redux";
+import {ReduxStoreProps} from "./config/store";
+import {onUpdate as updateAI} from "./store/ai";
+import {matchPath, useNavigate} from "react-router-dom";
+import {saveMdToHtml} from "./helpers/saveMdToHtml";
+import {getAiChats} from "./helpers/getAiChats";
+import {modelConfig} from "./config/model";
+import {initialSessions, onUpdate as updateSessions} from "./store/sessions";
+import {getAiContent} from "./helpers/getAiContent";
+import {GenerativeContentBlob} from "@google/generative-ai";
+import {getBase64Img} from "./helpers/getBase64Img";
+import {sendUserAlert} from "./helpers/sendUserAlert";
+import {sendUserConfirm} from "./helpers/sendUserConfirm";
+import {PageScroller} from "./components/PageScroller";
+import {LoginForm} from "./components/LoginForm";
 import siteLogo from "./assets/logo.svg";
 import setLocalStorage from "./helpers/setLocalStorage";
-import i18n, { i18nConfig } from "./config/i18n";
-import { setUserLocale } from "./helpers/setUserLocale";
-import { useTranslation } from "react-i18next";
-import { getCurrentLocale } from "./helpers/getCurrentLocale";
+import i18n, {i18nConfig} from "./config/i18n";
+import {setUserLocale} from "./helpers/setUserLocale";
+import {useTranslation} from "react-i18next";
+import {getCurrentLocale} from "./helpers/getCurrentLocale";
 
 const App = () => {
-    const { t } = useTranslation();
-    const { sse, title, passcodes } = globalConfig;
-    const { header, site } = title;
-    const { routes } = routerConfig;
-    const { fallback, resources } = i18nConfig;
+    const {t} = useTranslation();
+    const {sse, title, passcodes} = globalConfig;
+    const {header, site} = title;
+    const {routes} = routerConfig;
+    const {fallback, resources} = i18nConfig;
     const locales = Object.entries(resources).reduce((acc, [key, value]) => {
         acc[key] = value.label;
         return acc;
@@ -52,7 +52,7 @@ const App = () => {
     const [currentLocale, setCurrentLocale] = useState(fallback);
     const [hasLogined, setHasLogined] = useState(false);
     const [uploadInlineData, setUploadInlineData] =
-        useState<GenerativeContentBlob>({ data: "", mimeType: "" });
+        useState<GenerativeContentBlob>({data: "", mimeType: ""});
     const [sidebarExpand, setSidebarExpand] = useState(window.innerWidth > 768);
 
     const setCurrentLocaleToState = async () =>
@@ -73,9 +73,9 @@ const App = () => {
             )} ${sessionTime}\n- ${t(
                 "App.handleExportSession.export_time"
             )} ${exportTime}\n\n---\n\n`;
-            session.forEach(({ role, parts, timestamp, attachment }) => {
+            session.forEach(({role, parts, timestamp, attachment}) => {
                 if (!!attachment?.data.length) {
-                    const { data, mimeType } = attachment;
+                    const {data, mimeType} = attachment;
                     const base64ImgData = `data:${mimeType};base64,${data}`;
                     parts += `\n\n<img alt="" src="${base64ImgData}" />`;
                 }
@@ -100,7 +100,7 @@ const App = () => {
             const _sessions = {
                 ...sessions,
                 [id]: [
-                    { ...sessions[id][0], title: newTitle },
+                    {...sessions[id][0], title: newTitle},
                     ...sessions[id].slice(1),
                 ],
             };
@@ -118,7 +118,7 @@ const App = () => {
                 cancelText: t("App.handleDeleteSession.cancel_button"),
                 onConfirmed: () => {
                     navigate(routes.index.prefix);
-                    const _sessions = { ...sessions };
+                    const _sessions = {...sessions};
                     delete _sessions[id];
                     dispatch(updateSessions(_sessions));
                     sendUserAlert(t("App.handleDeleteSession.on_confirmed"));
@@ -137,7 +137,7 @@ const App = () => {
             onConfirmed: () => {
                 navigate(routes.index.prefix);
                 dispatch(updateSessions(initialSessions));
-                dispatch(updateAI({ ...ai, busy: false }));
+                dispatch(updateAI({...ai, busy: false}));
                 sendUserAlert(t("App.handlePurgeSessions.on_confirmed"));
             },
         });
@@ -165,7 +165,7 @@ const App = () => {
                 mimeType: file.type,
             });
         } else {
-            setUploadInlineData({ data: "", mimeType: "" });
+            setUploadInlineData({data: "", mimeType: ""});
         }
     };
 
@@ -174,12 +174,12 @@ const App = () => {
             sendUserAlert(t("App.handleSubmit.invalid_message"), true);
             return;
         }
-        const { prefix, uri, suffix } = routes.chat;
-        const { hash, pathname } = window.location;
-        let { id } = (matchPath(
-            { path: `${prefix}${uri}${suffix}` },
+        const {prefix, uri, suffix} = routes.chat;
+        const {hash, pathname} = window.location;
+        let {id} = (matchPath(
+            {path: `${prefix}${uri}${suffix}`},
             hash.replace("#", "") || pathname
-        )?.params as { id: string }) ?? { id: Date.now().toString() };
+        )?.params as { id: string }) ?? {id: Date.now().toString()};
         const sessionDate = new Date(parseInt(id));
         if (isNaN(sessionDate.getTime()) || sessionDate.getFullYear() < 2020) {
             sendUserAlert(t("App.handleSubmit.invalid_session"), true);
@@ -205,12 +205,12 @@ const App = () => {
                 },
             ],
         };
-        dispatch(updateAI({ ...ai, busy: true }));
+        dispatch(updateAI({...ai, busy: true}));
         dispatch(updateSessions(_sessions));
         navigate(`${prefix}/${id}${suffix}`);
         const handler = (message: string, end: boolean) => {
             if (end) {
-                dispatch(updateAI({ ...ai, busy: false }));
+                dispatch(updateAI({...ai, busy: false}));
             }
             let prevParts = _sessions[id][_sessions[id].length - 1].parts;
             if (prevParts === modelPlaceholder) {
@@ -247,7 +247,7 @@ const App = () => {
                 handler
             );
         }
-        setUploadInlineData({ data: "", mimeType: "" });
+        setUploadInlineData({data: "", mimeType: ""});
     };
 
     useEffect(() => {
@@ -299,9 +299,9 @@ const App = () => {
                         />
                         <RouterView
                             routes={routes}
-                            suspense={<Skeleton />}
+                            suspense={<Skeleton/>}
                             routerProps={{
-                                refs: { mainSectionRef, textAreaRef },
+                                refs: {mainSectionRef, textAreaRef},
                             }}
                         />
                         <InputArea

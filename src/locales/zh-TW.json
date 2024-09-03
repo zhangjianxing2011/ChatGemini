@@ -98,8 +98,8 @@
             }
         },
         "Session": {
-            "role_user": "您",
-            "role_model": "AI",
+            "role_user": "最帅的人",
+            "role_model": "Gemini",
             "submit_button": "儲存並提交",
             "cancel_button": "取消",
             "handleCopy": {

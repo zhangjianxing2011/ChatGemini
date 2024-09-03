@@ -98,8 +98,8 @@
             }
         },
         "Session": {
-            "role_user": "You",
-            "role_model": "AI",
+            "role_user": "The Most Handsome Man",
+            "role_model": "Gemini",
             "submit_button": "Save & submit",
             "cancel_button": "Cancel",
             "handleCopy": {

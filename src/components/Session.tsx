@@ -81,12 +81,14 @@ export const Session = (props: SessionProps) => {
                             role === SessionRole.Model ? "size-3" : "hidden"
                         }
                         src={aiIcon}
+                        style={{height:"1.8rem", width: "1.8rem"}}
                         alt=""
                     />
                     <img
                         className={
                             role === SessionRole.User ? "size-3" : "hidden"
                         }
+                        style={{height:"1.8rem", width: "1.8rem"}}
                         src={userIcon}
                         alt=""
                     />
