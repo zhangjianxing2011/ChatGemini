@@ -240,7 +240,7 @@ const App = () => {
             );
         } else {
             await getAiContent(
-                ai.model.vision,
+                ai.model.pro,
                 prompt,
                 uploadInlineData,
                 sse,
