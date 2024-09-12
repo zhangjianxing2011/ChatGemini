@@ -71,10 +71,9 @@ export const Session = (props: SessionProps) => {
             <div className="flex items-center">
                 <div
                     className={`size-6 rounded-full flex justify-center items-center ${
-                        role === SessionRole.Model
-                            ? "bg-purple-600"
-                            : "bg-lime-700"
+                        role === SessionRole.Model ? "bg-purple-600" : "bg-lime-700"
                     }`}
+                    style={{backgroundColor: "transparent"}}
                 >
                     <img
                         className={
