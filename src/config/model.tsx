@@ -10,7 +10,9 @@ export const modelConfig = {
     generationConfig: {
         stopSequences,
         maxOutputTokens: 5000,
+        language: "zh",
     },
+    //https://ai.google.dev/gemini-api/docs/safety-settings?hl=zh-cn#node.js
     safetySettings: [
         {
             category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
