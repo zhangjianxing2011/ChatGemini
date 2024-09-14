@@ -17,7 +17,9 @@ if (!Object.keys(env).length) {
     }
 }
 
-const keys = env["REACT_APP_GEMINI_API_KEY"]?.split("|").map((v) => v.trim()) ?? [""];
+const keys = env["REACT_APP_GEMINI_API_KEY"]
+    ?.split("|")
+    .map((v) => v.trim()) ?? [""];
 const passcodes =
     env["REACT_APP_PASSCODE_MD5"]
         ?.split("|")
