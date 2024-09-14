@@ -1,6 +1,5 @@
 import { GenerativeModel, GoogleGenerativeAI } from "@google/generative-ai";
 import { createSlice } from "@reduxjs/toolkit";
-import { createAiObj } from "../helpers/createAiObj";
 import { globalConfig } from "../config/global";
 import { AiType, getAiModel } from "../helpers/getAiModel";
 import { modelConfig } from "../config/model";
@@ -15,7 +14,8 @@ export interface AI<O, M> {
 const { keys, api } = globalConfig;
 const [key] = getRandomArr(keys, 1);
 
-const obj = createAiObj<GoogleGenerativeAI>(key, api);
+const obj = new GoogleGenerativeAI(key);
+
 const model = {
     pro: getAiModel(obj, "pro", modelConfig),
     vision: getAiModel(obj, "vision", modelConfig),
