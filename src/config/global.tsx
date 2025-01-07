@@ -39,4 +39,5 @@ export const globalConfig = {
     },
     api: env["REACT_APP_GEMINI_API_URL"] ? env["REACT_APP_GEMINI_API_URL"] : "",
     sse: env["REACT_APP_GEMINI_API_SSE"] === "false" ? false : true,
+    modal: env["GEMINI_MODAL"],
 };

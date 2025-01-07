@@ -11,7 +11,7 @@ export interface AI<O, M> {
     readonly model: M;
 }
 
-const { keys, api } = globalConfig;
+const { keys } = globalConfig;
 const [key] = getRandomArr(keys, 1);
 
 const obj = new GoogleGenerativeAI(key);
@@ -21,10 +21,7 @@ const model = {
     vision: getAiModel(obj, "vision", modelConfig),
 };
 
-export const initialAI: AI<
-    GoogleGenerativeAI,
-    Record<AiType, GenerativeModel>
-> = { busy: false, obj, model };
+export const initialAI: AI<GoogleGenerativeAI, Record<AiType, GenerativeModel>> = { busy: false, obj, model };
 
 const slice = createSlice({
     name: "ai",
